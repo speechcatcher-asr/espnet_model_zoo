@@ -264,6 +264,18 @@ class ModelDownloader:
             huggingface_id = name
             revision = None
 
+        #try local cache first
+        try:
+            return snapshot_download(
+                huggingface_id,
+                revision=revision,
+                library_name="espnet",
+                cache_dir=self.cachedir,
+                local_files_only=True,
+            )
+        except ValueError:
+            print("Could not find local cache copy for model:", name)
+
         return snapshot_download(
             huggingface_id,
             revision=revision,
