@@ -273,7 +273,7 @@ class ModelDownloader:
                 cache_dir=self.cachedir,
                 local_files_only=True,
             )
-        except ValueError:
+        except (ValueError, FileNotFoundError):
             print("Could not find local cache copy for model:", name)
 
         return snapshot_download(
